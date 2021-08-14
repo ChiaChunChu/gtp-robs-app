@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-calendars/styles/material.css";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  background-color: #fcf3f6;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: #2c292b;
+}
+
+h2 {
+  font-size: 1.5rem;
+  color: #2c292b;
+}
+
+.spinloader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

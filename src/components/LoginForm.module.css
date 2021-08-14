@@ -1,0 +1,14 @@
+.container {
+  margin-top: 2rem;
+}
+
+.form {
+    margin-top: 5rem;
+}
+
+.link {
+  margin-top: 10px;
+  font-size: smaller;
+  color: black;
+  float: right;
+}
