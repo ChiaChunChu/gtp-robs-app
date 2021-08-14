@@ -81,7 +81,7 @@ function MyBookingsPage() {
   if (loadedBookings.length !== 0) {
     bookingContent = <BookingList bookings={loadedBookings} />;
   } else {
-    if (popModalShow !== false) {
+    if (popModalShow === false) {
       bookingContent = (
         <p className={classes.text}>
           You got no booking yet. <Link to="/new-booking">Book a time?</Link>
