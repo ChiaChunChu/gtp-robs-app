@@ -154,7 +154,8 @@ const BookingSlotForm = () => {
       return requestSlots;
     });
 
-    fetch("http://localhost:8080/api/booking/" + userId + "/add", {
+//    fetch("http://localhost:8080/api/booking/" + userId + "/add", {
+    fetch("https://robs-backend.herokuapp.com/api/booking/" + userId + "/add", {
       method: "POST",
       body: JSON.stringify(requestSlots),
       headers: {
