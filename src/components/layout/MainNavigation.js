@@ -10,8 +10,8 @@ function MainNavigation() {
   const isAdmin = authCtx.role === "Admin";
 
   const logoutHandler = () => {
-    authCtx.logout();
     bookSlotCtx.cleanAllSlot();
+    authCtx.logout();
   };
 
   return (
