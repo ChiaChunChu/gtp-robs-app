@@ -1,14 +1,17 @@
 import { useContext } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import AuthContext from "../../store/AuthContext";
+import BookSlotContext from "../../store/BookSlotContext"
 
 function MainNavigation() {
   const authCtx = useContext(AuthContext);
+  const bookSlotCtx = useContext(BookSlotContext);
   const isLoggedIn = authCtx.isLoggedIn;
   const isAdmin = authCtx.role === "Admin";
 
   const logoutHandler = () => {
     authCtx.logout();
+    bookSlotCtx.cleanAllSlot();
   };
 
   return (
