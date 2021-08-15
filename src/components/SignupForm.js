@@ -28,54 +28,54 @@ function SignupForm() {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
-    setValidated(true);
-    const enteredFirstName = firstNameInputRef.current.value;
-    const enteredLastName = lastNameInputRef.current.value;
-    const enteredEmail = emailInputRef.current.value;
-    const enteredPassword = passwordInputRef.current.value;
+      setValidated(true);
+    } else {
+      const enteredFirstName = firstNameInputRef.current.value;
+      const enteredLastName = lastNameInputRef.current.value;
+      const enteredEmail = emailInputRef.current.value;
+      const enteredPassword = passwordInputRef.current.value;
 
 //    fetch("http://localhost:8080/api/registration", {
-    fetch("https://robs-backend.herokuapp.com/api/registration", {
-      method: "POST",
-      body: JSON.stringify({
-        firstName: enteredFirstName,
-        lastName: enteredLastName,
-        email: enteredEmail,
-        password: enteredPassword,
-        phone: phoneValue,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          let errRes = res.status + "-";
-          return res.json().then((data) => {
-            let errorMessage = "Request failed!";
-            if (data && data.error && data.message) {
-              errorMessage = data.message;
+      fetch("https://robs-backend.herokuapp.com/api/registration", {
+          method: "POST",
+          body: JSON.stringify({
+            firstName: enteredFirstName,
+            lastName: enteredLastName,
+            email: enteredEmail,
+            password: enteredPassword,
+            phone: phoneValue,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            if (res.ok) {
+              return res.json();
+            } else {
+              let errRes = res.status + "-";
+              return res.json().then((data) => {
+                let errorMessage = "Request failed!";
+                if (data && data.error && data.message) {
+                  errorMessage = data.message;
+                }
+                errRes += errorMessage;
+                throw new Error(errRes);
+              });
             }
-            errRes += errorMessage;
-            throw new Error(errRes);
+          })
+          .then((data) => {
+            authCtx.login(data.token, data.id, data.firstName, data.role);
+            history.replace("/");
+          })
+          .catch((errRes) => {
+            const errSts = errRes.message.split("-")[0];
+            const errMsg = errRes.message.split("-")[1];
+            setPopModalShow(true);
+            setPopModalTitle("Error - " + errSts);
+            setPopModalMessage(errMsg);
           });
-        }
-      })
-      .then((data) => {
-        authCtx.login(data.token, data.id, data.firstName, data.role);
-        history.replace("/");
-      })
-      .catch((errRes) => {
-        const errSts = errRes.message.split("-")[0];
-        const errMsg = errRes.message.split("-")[1];
-        setPopModalShow(true);
-        setPopModalTitle("Error - " + errSts);
-        setPopModalMessage(errMsg);
-      });
+    }
   };
 
   return (
@@ -149,7 +149,6 @@ function SignupForm() {
                   <Form.Group className="mb-3">
                     <Form.Label htmlFor="phone">Phone Number</Form.Label>
                     <PhoneInput
-                      required
                       placeholder="Enter phone number"
                       value={phoneValue}
                       defaultCountry="IE"
